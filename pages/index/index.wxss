@@ -1,0 +1,50 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+.rotate{
+  animation: rotatee 3s linear infinite; 
+}
+
+@keyframes rotatee{
+  0%{transform: rotate(0deg)}
+  100%{transform: rotate(360deg)}
+}
+
+.section__title{
+  font-size: 35px;
+  padding:20px 30px;
+  margin:20px 0;
+  border-radius: 5px;
+  /* border:1px solid #aaa; */
+  box-shadow: 0 0 5px #aaa;
+  text-align: center;
+}
+button{
+  margin:5px;
+}
+.section_history{
+  margin-top: 20px;
+  text-shadow: 1px 1px 5px #00b26a;
+  text-decoration: underline;
+}
+view{
+  text-align: center;
+}

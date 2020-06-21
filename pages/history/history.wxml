@@ -1,0 +1,18 @@
+
+<view class="hispanel" catchtap='inbtn' id="hisPanel">
+    <view class="his-title">打卡记录</view>
+    <view class="his-header"><text>日期</text><text>时间区间</text><text>打卡时长</text></view>
+    <view wx:for="{{arry}}" wx:key="{{arry}}" wx:for-index="idx" >
+      <text class="table-item">{{item.date}}</text><text class="table-item">{{item.begin}} - {{item.end}}</text><text class="table-item">{{item.length}}</text>
+    </view>
+
+    <view class="all-length  {{allLengthShow?'active':''}}">
+      <view bindtap='toggleAllLength'>累计记录时间：{{allLength}} <icon type="info" size="20" color="yellow"/></view>
+
+      <view>
+      <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas  {{allLengthShow?'':'hidden'}}"></canvas>
+      </view>
+    </view>
+
+  </view>
+
