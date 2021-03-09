@@ -41,8 +41,24 @@ Page({
     }else{
       localObj = []
     }
+    console.log("localObj", localObj);
+    let dateArr = [], chartData=[], tableData=[];
+    localObj.map(i=>{
+      let dateIndex = dateArr.indexOf(i.date);
+      let curLen = this.time2len(i.length);
+      let tableItem = {...i};
+      if(dateIndex==-1){
+        dateArr.push(i.date);
+        chartData.push(curLen);
+      }else{
+        chartData[dateIndex] += curLen;
+        tableItem['date'] = '';
+      }
+      tableData.push(tableItem)
+    })
+    console.log("dateArr", dateArr, chartData);
     this.setData({
-      arry: localObj
+      arry: tableData
     })
     this.checkAllLength();
 
@@ -52,11 +68,11 @@ Page({
       canvasId: 'lineCanvas',
       type: 'line',
       animation: true,
-      categories: ['2012', '2013', '2014', '2015', '2016', '2017'],
+      categories: dateArr,
       background: '#f5f5f5',
       series: [{
         name: '打卡时长',
-        data: [60, 0, 30, 90, 120, 40, 50],
+        data: chartData,
         format: function (val, name) {
           return val.toFixed(2) + 'min';
         }
@@ -65,9 +81,9 @@ Page({
         disableGrid: true
       },
       yAxis: {
-        title: '单日打卡时长 (分钟)',
+        title: '单日打卡时长 (秒)',
         format: function (val) {
-          return val.toFixed(2);
+          return val.toFixed(0);
         },
         min: 0
       },
@@ -86,15 +102,24 @@ Page({
       allLengthShow: !this.data.allLengthShow
     })
   },
+  backHome:function(){
+    wx.navigateTo({ 
+      url: '../index/index'
+    })
+  },
+  // 将时间格式00:00:05 转换为秒数
+  time2len:function(timeStr){
+    let timeArr = timeStr.split(":");
+    let len = parseInt(timeArr[0]*60*60 + timeArr[1]*60 + timeArr[2]);
+    return len;
+  },
   checkAllLength:function(){
     let arr = this.data.arry, len=0, hours=0, minutes=0, seconds=0;
     console.log(arr)
     for(var i=0;i<arr.length;i++){
-      let timeSource = arr[i].length;
-      let timeArr = timeSource.split(":");
-      console.log(timeArr)
       //时钟、分钟、秒钟分别相加
-      len += parseInt(timeArr[0]*60*60 + timeArr[1]*60 + timeArr[2]);
+      let curLen = this.time2len(arr[i].length);
+      len += curLen;
     }
     console.log("合计秒："+len);
     //hours/minutes/seconds合计时间

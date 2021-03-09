@@ -12,6 +12,13 @@ page{
   .his-title{
       justify-content: center;
   }
+
+  .back{
+    font-size: 12px;
+    position: absolute;
+    right:0;
+    color: #ddd;
+  }
   
   .hispanel view{
     width:100%;
@@ -80,5 +87,5 @@ page{
 
   .table-item{
     font-size: 12px;
-    line-height: 10px;
+    line-height: 22px;
   }
